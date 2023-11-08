@@ -9,72 +9,68 @@ const App = () => {
   const [result, setresult] = useState('');
   const [eq, seteq] = useState(false)
 
-  const op = ['+','-','*','/','.']
+  const op = ['+', '-', '*', '/', '.']
 
 
-  const updatecalc=v=>{
+  const updatecalc = v => {
     console.log(calc)
-    if(  (  op.includes(v)&&(calc==='')) || (op.includes(v)&&(op.includes(calc.slice(-1)))) ){
+    if ((op.includes(v) && (calc === '')) || (op.includes(v) && (op.includes(calc.slice(-1))))) {
       return
     }
-   if((eq&&op.includes(v)|| !eq))
-   {
-    seteq(false)
-    setcalc(calc+v)
-    if(!(op.includes(v)))
-    {
-      setresult(eval(calc+v).toString())
+    if ((eq && op.includes(v) || !eq)) {
+      seteq(false)
+      setcalc(calc + v)
+      if (!(op.includes(v))) {
+        setresult(eval(calc + v).toString())
+      }
     }
-   }
 
-   else if(eq)
-   {
-    setresult('')
-    setcalc('')
-    seteq(false)
-    setcalc(v)
-    setresult(eval(v).toString())
-   }
-  
+    else if (eq) {
+      setresult('')
+      setcalc('')
+      seteq(false)
+      setcalc(v)
+      setresult(eval(v).toString())
+    }
+
 
   }
 
-  const calcu=()=>{
-  
+  const calcu = () => {
+
     setcalc(result)
     seteq(true)
 
   }
 
-  const delast=()=>{
-    if(calc==="")
-    {
+  const delast = () => {
+    if (calc === "") {
       return
     }
 
     const value = calc.slice(0, -1)
     setcalc(value)
-    console.log('here',value)
-    if(value){
-    if (op.includes(value.slice(-1))) {
-      setresult(eval(value.toString().slice(0,-1)));  
-    } else  {
-      console.log('inside',value)
-      setresult(eval(value).toString())
-    }}
-    else{
+    console.log('here', value)
+    if (value) {
+      if (op.includes(value.slice(-1))) {
+        setresult(eval(value.toString().slice(0, -1)));
+      } else {
+        console.log('inside', value)
+        setresult(eval(value).toString())
+      }
+    }
+    else {
       setresult('')
     }
-  
+
   }
 
-  
 
-  const d =[]; 
 
-  for( let i=1;i<10;i++)
-  {
-    d.push(<button onClick={()=>updatecalc(i.toString())} key={i}>{i}</button>)
+  const d = [];
+
+  for (let i = 1; i < 10; i++) {
+    d.push(<button onClick={() => updatecalc(i.toString())} key={i}>{i}</button>)
   }
 
 
@@ -83,24 +79,24 @@ const App = () => {
       <div className='calculator'>
 
         <div className='display'>
-          {result?<span>({result})</span>:''}&nbsp;
+          {result ? <span>({result})</span> : ''}&nbsp;
 
-          {calc||'0'}
+          {calc || ''}
         </div>
 
         <div className='operators'>
-          <button onClick={()=>updatecalc('/')}>/</button>
-          <button onClick={()=>updatecalc('*')}>*</button>
-          <button onClick={()=>updatecalc('+')}>+</button>
-          <button onClick={()=>updatecalc('-')}>-</button>
+          <button onClick={() => updatecalc('/')}>/</button>
+          <button onClick={() => updatecalc('*')}>*</button>
+          <button onClick={() => updatecalc('+')}>+</button>
+          <button onClick={() => updatecalc('-')}>-</button>
           <button onClick={delast}>DEL</button>
-          <button onClick={()=>{setcalc('');setresult('')}}>AC</button>
+          <button onClick={() => { setcalc(''); setresult('') }}>AC</button>
         </div>
 
         <div className='digits'>
           {d}
-          <button onClick={()=>updatecalc('0')}>0</button>
-          <button onClick={()=>updatecalc('.')}>.</button>
+          <button onClick={() => updatecalc('0')}>0</button>
+          <button onClick={() => updatecalc('.')}>.</button>
           <button onClick={calcu}>=</button>
         </div>
 
